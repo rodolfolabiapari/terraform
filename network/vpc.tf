@@ -30,11 +30,7 @@ module "k8sVpc" {
   #["10.21.24.0/21", "10.21.32.0/21", "10.21.40.0/21"]
   public_subnets = [var.cidrsSubnet[3], var.cidrsSubnet[4], var.cidrsSubnet[5]]
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
+  tags = local.tags
 }
 
 

@@ -1,121 +1,81 @@
 
 
-module "EtcdSecurityGroupName" {
+module "EtcdSecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "ETCD-K8S-HML"
   description = "Security group for ETCD-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
 
-module "ControllerSecurityGroupName" {
+module "ControllerSecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "CONTROLLER-K8S-HML"
   description = "Security group for CONTROLLER-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
 
-module "ElbSecurityGroupName" {
+module "ElbSecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "ELB-K8S-HML"
   description = "Security group for ELB-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
 
-module "WorkerSystemSecurityGroupName" {
+module "WorkerSystemSecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "WORKER-SYSTEM-K8S-HML"
   description = "Security group for WORKER-SYSTEM-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
 
-module "WorkerPool1SecurityGroupName" {
+module "WorkerPool1SecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "WORKER-POOL-K8S-HML"
   description = "Security group for WORKER-POOL-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
 
-module "AlbAdmSecurityGroupName" {
+module "AlbAdmSecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "ALB-ADM-K8S-HML"
   description = "Security group for ALB-ADM-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
 
-module "AlbServicesSecurityGroupName" {
+module "AlbServicesSecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "ALB-SERVICES-K8S-HML"
   description = "Security group for ALB-SERVICES-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
 
-module "ElasticSearchSecurityGroupName" {
+module "ElasticSearchSecurityGroup" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "ELASTIC-SEARCH-K8S-HML"
   description = "Security group for ELASTIC-SEARCH-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
-  tags = {
-    Owner       = "Rodolfo"
-    Build       = "TerraForm"
-    Environment = "HML"
-  }
-
+  tags = local.tags
 }
