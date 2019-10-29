@@ -3,13 +3,13 @@
 
 resource "aws_lb" "K8sNlb" {
   name               = "MICROSSERVICOS-NLB-K8S-HML"
-  internal           = true 
+  internal           = true
   load_balancer_type = "network"
   #security_groups    =  # There is no SG in Layer 4
-  subnets            = var.azs 
+  subnets = var.azs
 
   # If true, cross-zone load balancing of the load balancer will be enabled.
-  enable_cross_zone_load_balacing = true
+  enable_cross_zone_load_balancing = true
 
   #enable_deletion_protection = true
 
@@ -18,15 +18,15 @@ resource "aws_lb" "K8sNlb" {
 
 resource "aws_lb_target_group" "K8sNlbTargetGroup" {
   name     = "MICROSSERVICOS-TG-NLB-K8S-HML"
-  port     = 30745 
+  port     = 30745
   protocol = "TCP"
-  vpc_id   = "${module.k8sVpc.id}"
+  vpc_id   = "${module.k8sVpc.vpc_id}"
 
-  health_check = {
-    interval = 30
-    protocol = TCP
-    timeout  = 10
-    healthy_threshold = 2
+  health_check {
+    interval            = 30
+    protocol            = "TCP"
+    timeout             = 10
+    healthy_threshold   = 2
     unhealthy_threshold = 2
   }
 }
@@ -51,9 +51,9 @@ resource "aws_lb_listener" "K8sNlbListener" {
 
 resource "aws_lb" "K8sAlbAdm" {
   name               = "ADMIN-K8S-HML"
-  internal           = true 
+  internal           = true
   load_balancer_type = "application"
-  security_groups    = module.AlbAdmSecurityGroup.id 
+  security_groups    = module.AlbAdmSecurityGroup.this_security_group_id
   subnets            = var.azs
 
   #enable_deletion_protection = true
@@ -63,18 +63,18 @@ resource "aws_lb" "K8sAlbAdm" {
 
 resource "aws_lb_target_group" "K8sAlbAdmTargetGroup" {
   name     = "ADMIN-K8S-HML"
-  port     =  30744
+  port     = 30744
   protocol = "HTTP"
-  vpc_id   = "${module.k8sVpc.id}"
+  vpc_id   = "${module.k8sVpc.vpc_id}"
 
-  health_check = {
-    interval = 30
-    protocol = HTTP 
-    port     = 30744 
-    path     = /healthz
-    timeout  = 10
-    matcher  = 200
-    healthy_threshold = 2
+  health_check {
+    interval            = 30
+    protocol            = "HTTP"
+    port                = 30744
+    path                = "/healthz"
+    timeout             = 10
+    matcher             = 200
+    healthy_threshold   = 2
     unhealthy_threshold = 2
   }
 }
@@ -98,9 +98,9 @@ resource "aws_lb_listener" "K8sAlbAdmListener" {
 
 resource "aws_lb" "K8sAlbServices" {
   name               = "MICROSSERVICOS-ALB-K8S-HML"
-  internal           = true 
+  internal           = true
   load_balancer_type = "application"
-  security_groups    = module.AlbServicesSecurityGroup.id
+  security_groups    = module.AlbServicesSecurityGroup.this_security_group_id
   subnets            = var.azs
 
   #enable_deletion_protection = true
@@ -112,16 +112,16 @@ resource "aws_lb_target_group" "K8sAlbServicesTargetGroup" {
   name     = "MICROSSERVICOS-TG-ALB-K8S-HML"
   port     = 30745
   protocol = "HTTP"
-  vpc_id   = "${module.k8sVpc.id}"
+  vpc_id   = "${module.k8sVpc.vpc_id}"
 
-  health_check = {
-    interval = 30
-    protocol = HTTP 
-    port     = 30745
-    path     = /healthz
-    timeout  = 10
-    matcher  = 200
-    healthy_threshold = 2
+  health_check {
+    interval            = 30
+    protocol            = "HTTP"
+    port                = 30745
+    path                = "/healthz"
+    timeout             = 10
+    matcher             = 200
+    healthy_threshold   = 2
     unhealthy_threshold = 2
   }
 }

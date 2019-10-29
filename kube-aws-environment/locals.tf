@@ -1,10 +1,10 @@
 
 
 locals {
-  tags  = {
-   "Owner"       = "Rodolfo"
-   "Build"       = "TerraForm"
-   "Environment" = "HML"
+  tags = {
+    "Owner"       = "Rodolfo"
+    "Build"       = "TerraForm"
+    "Environment" = "HML"
   }
 }
 

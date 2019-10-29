@@ -79,3 +79,14 @@ module "ElasticSearchSecurityGroup" {
 
   tags = local.tags
 }
+
+
+output "AlbAdmSecurityGroup" {
+  description = "The ALB ADM SG"
+  value       = module.AlbAdmSecurityGroup.this_security_group_id
+}
+
+output "AlbServicesSecurityGroup" {
+  description = "The ALB Services SG"
+  value       = module.AlbServicesSecurityGroup.this_security_group_id
+}
