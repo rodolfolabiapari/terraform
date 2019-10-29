@@ -6,7 +6,7 @@ resource "aws_lb" "K8sNlb" {
   internal           = true
   load_balancer_type = "network"
   #security_groups    =  # There is no SG in Layer 4
-  subnets = var.azs
+  subnets = module.k8sVpc.private_subnets
 
   # If true, cross-zone load balancing of the load balancer will be enabled.
   enable_cross_zone_load_balancing = true
@@ -25,7 +25,7 @@ resource "aws_lb_target_group" "K8sNlbTargetGroup" {
   health_check {
     interval            = 30
     protocol            = "TCP"
-    timeout             = 10
+    #timeout             = 10
     healthy_threshold   = 2
     unhealthy_threshold = 2
   }
@@ -45,16 +45,12 @@ resource "aws_lb_listener" "K8sNlbListener" {
 
 
 
-
-
-
-
 resource "aws_lb" "K8sAlbAdm" {
   name               = "ADMIN-K8S-HML"
   internal           = true
   load_balancer_type = "application"
-  security_groups    = module.AlbAdmSecurityGroup.this_security_group_id
-  subnets            = var.azs
+  #security_groups    = module.AlbAdmSecurityGroup.this_security_group_id
+  subnets = module.k8sVpc.private_subnets
 
   #enable_deletion_protection = true
 
@@ -92,16 +88,12 @@ resource "aws_lb_listener" "K8sAlbAdmListener" {
 
 
 
-
-
-
-
 resource "aws_lb" "K8sAlbServices" {
   name               = "MICROSSERVICOS-ALB-K8S-HML"
   internal           = true
   load_balancer_type = "application"
-  security_groups    = module.AlbServicesSecurityGroup.this_security_group_id
-  subnets            = var.azs
+  #security_groups    = module.AlbServicesSecurityGroup.this_security_group_id
+  subnets = module.k8sVpc.private_subnets
 
   #enable_deletion_protection = true
 
