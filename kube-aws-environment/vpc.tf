@@ -35,32 +35,56 @@ module "k8sVpc" {
 
 
 
+resource "aws_route53_zone" "private" {
+  name = "kubernetes.lxp.local"
+  comment = "Hosted Zone For Kubernetes' Cluster"
+
+  vpc {
+    vpc_id = "${module.k8sVpc.vpc_id}"
+  }
+  
+  tags = local.tags
+}
+
+
 
 # VPC
-output "vpc_id" {
+output "vpc-vpc_id" {
   description = "The ID of the VPC"
   value       = module.k8sVpc.vpc_id
 }
 
 # CIDR blocks
-output "vpc_cidr_block" {
+output "vpc-vpc_cidr_block" {
   description = "The CIDR block of the VPC"
   value       = module.k8sVpc.vpc_cidr_block
 }
 
 # Subnets
-output "private_subnets" {
+output "vpc-private_subnets" {
   description = "List of IDs of private subnets"
   value       = module.k8sVpc.private_subnets
 }
 
-output "public_subnets" {
+output "vpc-public_subnets" {
   description = "List of IDs of public subnets"
   value       = module.k8sVpc.public_subnets
 }
 
+
+output "route53-hostedZoneId" {
+  description = "hostedZoneId"
+  value       = aws_route53_zone.private.zone_id
+}
+
+output "route53-hostedZoneName" {
+  description = "hostedZoneName"
+  value       = aws_route53_zone.private.name
+}
+
+
 # AZs
-output "azs" {
+output "vpc-azs" {
   description = "A list of availability zones spefified as argument to this module"
   value       = module.k8sVpc.azs
 }

@@ -75,6 +75,7 @@ resource "aws_lb_target_group" "K8sAlbAdmTargetGroup" {
   }
 }
 
+
 resource "aws_lb_listener" "K8sAlbAdmListener" {
   load_balancer_arn = "${aws_lb.K8sAlbAdm.arn}"
   port              = 80
@@ -130,3 +131,9 @@ resource "aws_lb_listener" "K8sAlbServicesListener" {
 }
 
 
+
+
+output "tg-worker" {
+  description = "TG Worker"
+  value       = aws_lb_target_group.K8sAlbServicesTargetGroup.arn
+}

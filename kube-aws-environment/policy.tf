@@ -2,9 +2,9 @@ module "EtcdPolicyName" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "~> 2.0"
 
-  name        = "ETCD-K8S"
+  name        = "ETCD-K8S-HML"
   path        = "/"
-  description = "Policy for ETCD-K8S"
+  description = "Policy for ETCD-K8S-HML"
 
   policy = <<EOF
 {
@@ -79,9 +79,9 @@ module "ControllerPolicyName" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "~> 2.0"
 
-  name        = "CONTROLLER-K8S"
+  name        = "CONTROLLER-K8S-HML"
   path        = "/"
-  description = "Policy for CONTROLLER-K8S"
+  description = "Policy for CONTROLLER-K8S-HML"
 
   policy = <<EOF
 {
@@ -117,9 +117,9 @@ module "WorkerComumPolicyName" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "~> 2.0"
 
-  name        = "WORKER-COMMON-K8S"
+  name        = "WORKER-COMMON-K8S-HML"
   path        = "/"
-  description = "Policy for WORKER-COMMON-K8S"
+  description = "Policy for WORKER-COMMON-K8S-HML"
 
   policy = <<EOF
 {
@@ -172,9 +172,9 @@ module "WorkerSystemPolicyName" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "~> 2.0"
 
-  name        = "WORKER-SYSTEM-K8S"
+  name        = "WORKER-SYSTEM-K8S-HML"
   path        = "/"
-  description = "Policy for WORKER-SYSTEM-K8S"
+  description = "Policy for WORKER-SYSTEM-K8S-HML"
 
   policy = <<EOF
 {
@@ -201,9 +201,9 @@ module "WorkerPool1PolicyName" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "~> 2.0"
 
-  name        = "WORKER-POOL-K8S"
+  name        = "WORKER-POOL-K8S-HML"
   path        = "/"
-  description = "Policy for WORKER-POOL-K8S"
+  description = "Policy for WORKER-POOL-K8S-HML"
 
   policy = <<EOF
 {
@@ -305,4 +305,33 @@ module "WorkerPool1PolicyName" {
 }
 EOF
 }
+
+
+output "iam-EtcdPolicyName" {
+  description = "EtcdPolicyName"
+  value       = module.EtcdPolicyName.arn
+}
+
+output "iam-ControllerPolicyName" {
+  description = "ControllerPolicyName"
+  value       = module.ControllerPolicyName.arn
+}
+
+output "iam-WorkerComumPolicyName" {
+  description = "WorkerComumPolicyName"
+  value       = module.WorkerComumPolicyName.arn
+}
+
+
+output "iam-WorkerSystemPolicyName" {
+  description = "WorkerSystemPolicyName"
+  value       = module.WorkerSystemPolicyName.arn
+}
+
+
+output "iam-WorkerPool1PolicyName" {
+  description = "WorkerPool1PolicyName"
+  value       = module.ControllerPolicyName.arn
+}
+
 

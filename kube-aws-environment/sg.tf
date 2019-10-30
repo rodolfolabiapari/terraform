@@ -111,9 +111,24 @@ module "sshSecurityGroup" {
 }
 
 
-output "sshSecurityGroup" {
-  description = "SSH SG for Bastion"
-  value       = module.sshSecurityGroup.this_security_group_id  
+output "sg-apiEndpoints" {
+  description = "apiEndpoints"
+  value       = module.AlbAdmSecurityGroup.this_security_group_id
+}
+
+output "sg-controller" {
+  description = "controller"
+  value       = module.ControllerSecurityGroup.this_security_group_id
+}
+
+output "sg-worker" {
+  description = "worker"
+  value       = module.WorkerPool1SecurityGroup.this_security_group_id
+}
+
+output "sg-etcd" {
+  description = "etcd"
+  value       = module.EtcdSecurityGroup.this_security_group_id
 }
 
 
