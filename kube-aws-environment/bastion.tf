@@ -1,10 +1,11 @@
 
 resource "aws_instance" "bastion" {
-  ami               = "ami-01ff8aa58269fddd1" # Amazon Linux 2 AMI (HVM)
-  instance_type     = "t2.micro"
-  availability_zone = var.azs[0]
-  key_name          = "KUBE-LXP"
-  #security_groups   = 
+  ami                         = "ami-01ff8aa58269fddd1" # Amazon Linux 2 AMI (HVM)
+  instance_type               = "t2.micro"
+  availability_zone           = var.azs[0]
+  key_name                    = "KUBE-LXP"
+  vpc_security_group_ids      = ["${module.sshSecurityGroup.this_security_group_id}"]
+  subnet_id                   = "${module.k8sVpc.public_subnets[0]}"
   associate_public_ip_address = true
 
 
@@ -29,8 +30,16 @@ resource "aws_instance" "bastion" {
 
   volume_tags = local.tags
 
-  tags = local.tags
+  tags = "${merge(
+    local.tags,
+    map(
+      "Name", "Bastion Kubernetes"
+    )
+  )}"
 }
+
+
+
 
 #resource "aws_volume_attachment" "attach" {
 #

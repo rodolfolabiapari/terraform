@@ -23,8 +23,8 @@ resource "aws_lb_target_group" "K8sNlbTargetGroup" {
   vpc_id   = "${module.k8sVpc.vpc_id}"
 
   health_check {
-    interval            = 30
-    protocol            = "TCP"
+    interval = 30
+    protocol = "TCP"
     #timeout             = 10
     healthy_threshold   = 2
     unhealthy_threshold = 2

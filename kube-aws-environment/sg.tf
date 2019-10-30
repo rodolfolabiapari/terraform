@@ -80,13 +80,51 @@ module "ElasticSearchSecurityGroup" {
   tags = local.tags
 }
 
+module "sshSecurityGroup" {
+  source = "terraform-aws-modules/security-group/aws"
 
-output "AlbAdmSecurityGroup" {
-  description = "The ALB ADM SG"
-  value       = module.AlbAdmSecurityGroup.this_security_group_id
+  name        = "Bastion-Kubernetes-SSH"
+  description = "Security group for user-service for SSH"
+  vpc_id      = "${module.k8sVpc.vpc_id}"
+
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      description = "SSH para conexao no Bastion Kubernetes"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 65535
+      protocol    = "tcp"
+      description = "Internet"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+
+  tags = local.tags
 }
 
-output "AlbServicesSecurityGroup" {
-  description = "The ALB Services SG"
-  value       = module.AlbServicesSecurityGroup.this_security_group_id
+
+output "sshSecurityGroup" {
+  description = "SSH SG for Bastion"
+  value       = module.sshSecurityGroup.this_security_group_id  
 }
+
+
+
+
+#output "AlbAdmSecurityGroup" {
+#  description = "The ALB ADM SG"
+#  value       = module.AlbAdmSecurityGroup.this_security_group_id
+#}
+#
+#output "AlbServicesSecurityGroup" {
+#  description = "The ALB Services SG"
+#  value       = module.AlbServicesSecurityGroup.this_security_group_id
+#}
