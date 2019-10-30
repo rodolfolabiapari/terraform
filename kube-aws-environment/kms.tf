@@ -7,10 +7,21 @@ resource "aws_kms_key" "k8s" {
 
   policy = "${data.template_file.kms_policy.rendered}"
 
-  tags = local.tags
+  tags = "${merge(
+    local.tags,
+    map(
+      "Name", "kubernetes"
+    )
+  )}"
 }
 
+resource "aws_kms_alias" "alias" {
+  name          = "alias/kubernetes"
+  target_key_id = "${aws_kms_key.k8s.key_id}"
+}
+
+
 output "kms" {
-  description = "kms"
-  value       = aws_kms_key.k8s.arn
+  description   = "kms"
+  value         = aws_kms_key.k8s.arn
 }
