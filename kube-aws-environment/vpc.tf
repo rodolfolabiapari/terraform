@@ -36,13 +36,13 @@ module "k8sVpc" {
 
 
 resource "aws_route53_zone" "private" {
-  name = "kubernetes.lxp.local"
+  name    = "kubernetes.lxp.local"
   comment = "Hosted Zone For Kubernetes' Cluster"
 
   vpc {
     vpc_id = "${module.k8sVpc.vpc_id}"
   }
-  
+
   tags = local.tags
 }
 
