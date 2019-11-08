@@ -7,6 +7,24 @@ module "EtcdSecurityGroup" {
   description = "Security group for ETCD-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
 
+  # https://github.com/coreos/kube-prometheus/blob/master/docs/monitoring-external-etcd.md
+  ingress_with_source_security_group_id = [
+    {
+      from_port   = 2379
+      to_port     = 2379
+      protocol    = "tcp"
+      description = "Prometheus Port for kube-proxy from sg himself"
+      source_security_group_id = module.WorkerPool1SecurityGroup.this_security_group_id
+    },
+    {
+      from_port   = 2379
+      to_port     = 2379
+      protocol    = "tcp"
+      description = "Prometheus Port for kube-proxy from sg controller"
+      source_security_group_id = module.ControllerSecurityGroup.this_security_group_id
+    }
+  ]
+  
   tags = local.tags
 }
 
@@ -16,6 +34,23 @@ module "ControllerSecurityGroup" {
   name        = "CONTROLLER-K8S-HML"
   description = "Security group for CONTROLLER-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      from_port   = 10249
+      to_port     = 10249
+      protocol    = "tcp"
+      description = "Prometheus Port for kube-proxy from sg himself"
+      source_security_group_id = module.WorkerPool1SecurityGroup.this_security_group_id
+    },
+    {
+      from_port   = 10249
+      to_port     = 10249
+      protocol    = "tcp"
+      description = "Prometheus Port for kube-proxy from sg controller"
+      source_security_group_id = module.ControllerSecurityGroup.this_security_group_id
+    }
+  ]
 
   tags = local.tags
 }
@@ -46,6 +81,24 @@ module "WorkerPool1SecurityGroup" {
   name        = "WORKER-POOL-K8S-HML"
   description = "Security group for WORKER-POOL-K8S-HML"
   vpc_id      = module.k8sVpc.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      from_port   = 10249
+      to_port     = 10249
+      protocol    = "tcp"
+      description = "Prometheus Port for kube-proxy from sg himself"
+      source_security_group_id = module.WorkerPool1SecurityGroup.this_security_group_id
+    },
+    {
+      from_port   = 10249
+      to_port     = 10249
+      protocol    = "tcp"
+      description = "Prometheus Port for kube-proxy from sg controller"
+      source_security_group_id = module.ControllerSecurityGroup.this_security_group_id
+    }
+  ]
+
 
   tags = local.tags
 }
