@@ -181,13 +181,12 @@ output "tg-worker" {
 
 
 
-
 module "s3_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
 
   bucket = "kubernetes-lxp-hml"
   acl    = "private"
-  
+
   force_destroy = true # on delete
 
   versioning = {
@@ -196,3 +195,17 @@ module "s3_bucket" {
 
   tags = local.tags
 }
+
+
+output "bastion-public-ip" {
+  description = "Bastion Public IP"
+  value       = aws_instance.bastion.public_ip
+}
+
+
+output "s3_bucket" {
+  description = "name S3:"
+  value       = module.s3_bucket.this_s3_bucket_arn
+}
+
+# output public ip do bastion

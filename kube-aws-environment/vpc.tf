@@ -66,10 +66,10 @@ output "vpc-private_subnets" {
   value       = module.k8sVpc.private_subnets
 }
 
-output "vpc-public_subnets" {
-  description = "List of IDs of public subnets"
-  value       = module.k8sVpc.public_subnets
-}
+#output "vpc-public_subnets" {
+#  description = "List of IDs of public subnets"
+#  value       = module.k8sVpc.public_subnets
+#}
 
 
 output "route53-hostedZoneId" {
