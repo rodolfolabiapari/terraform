@@ -1,7 +1,8 @@
 # Hello
 
 This is a repo containing a my study about terraform to build up a 
-environment that I will put a Kubernet Cluster using kube-aws.
+environment that I will put some stufs likea Kubernet Cluster using
+kube-aws, mongodb, etc.
 
 Feel free to use my knowledge in here in any project you wish, just
 properly attribute them please.
